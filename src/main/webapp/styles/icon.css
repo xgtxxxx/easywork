@@ -1,0 +1,18 @@
+.icon-pause{
+	 background-image: url(icons/control_pause_blue.png)!important; 
+}
+.icon-resume{
+	background-image: url(icons/control_play_blue.png)!important; 
+}
+.icon-add{
+	background-image: url(icons/add.png)!important; 
+}
+.icon-delete{
+	background-image: url(icons/delete.png)!important; 
+}
+.icon-back{
+	background-image: url(icons/tab_go.png)!important; 
+}
+.icon-detail{
+	background-image: url(icons/magnifier.png)!important; 
+}

@@ -1,0 +1,10 @@
+{
+	"record":[{
+				"name":"TestJob1",
+				"class":"xgt.easy.schedule.TestJob1"
+			},{
+				"name":"TestJob2",
+				"class":"xgt.easy.schedule.TestJob2"
+			}],
+	"totalcount":2
+}
