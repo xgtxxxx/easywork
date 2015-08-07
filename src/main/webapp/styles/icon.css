@@ -16,3 +16,9 @@
 .icon-detail{
 	background-image: url(icons/magnifier.png)!important; 
 }
+
+.menu-focus{
+	background-color : blue;
+}
+
+ 

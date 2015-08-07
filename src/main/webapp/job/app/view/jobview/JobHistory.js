@@ -45,7 +45,7 @@ Ext.define('Job.view.jobview.JobHistory', {
 	        },"-",{
 	        	xtype : 'datefield',
 	        	emptyText : 'Start Time',
-	        	format : 'Y-m-d'
+	        	format : 'Y-m-d H:i:s'
 	        },"-",{
 	        	xtype : 'datefield',
 	        	emptyText : 'End Time',

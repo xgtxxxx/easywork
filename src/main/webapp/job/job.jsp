@@ -21,6 +21,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/icon.css">
 <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script src="${pageContext.request.contextPath}/extjs/include-ext.js?theme=classic"></script>
+<script src="${pageContext.request.contextPath}/extjs/utils/ExtUtil.js"></script>
 <script src="${pageContext.request.contextPath}/job/job.js"></script>
 <title>Schedule Task</title>
 </head>

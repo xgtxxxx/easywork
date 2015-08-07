@@ -1,0 +1,9 @@
+{	
+	"sysmenu"  : [
+		{"text":"Home","handler":"onSysmenuClick","param":"home","type":"menu","style":"font-size:18px;"},
+		{"text":"User","handler":"onSysmenuClick","type":"menu"},
+		{"text":"Email","handler":"onSysmenuClick","type":"menu"},
+		{"text":"Schedule","handler":"onSysmenuClick","type":"menu"},
+		{"text":"Contact","handler":"onSysmenuClick","type":"menu"},
+	]
+}

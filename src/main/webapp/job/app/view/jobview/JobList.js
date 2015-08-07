@@ -55,8 +55,10 @@ Ext.define('Job.view.jobview.JobList', {
 	},
 	showDetail : function(grid, rowIndex, colIndex){
 		var record = grid.getStore().getAt(rowIndex);
-		this.ownerCt.getLayout().setActiveItem(1);
-		this.ownerCt.down('jobtrigger').reload(record.data.name);
+		var layout = this.ownerCt.getLayout();
+		var next = this.ownerCt.down('jobtrigger');
+		ExtUtil.slideActive(layout,next,'r');
+		next.reload(record.data.name);
 	},
 	deleteJob : function(grid, rowIndex, colIndex){
 		var p = this;

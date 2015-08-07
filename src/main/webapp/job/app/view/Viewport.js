@@ -1,13 +1,8 @@
 Ext.define('Job.view.Viewport', {
-    extend: 'Ext.container.Viewport',
+    extend: 'Ext.panel.Panel',
     layout: 'border',
-    items: [{
-        region: 'north',
-        xtype: 'component',
-        padding: 10,
-        height: 40,
-        html: 'My Company - My Company Moott'
-    },{
+    items: [
+            {
         region: 'west',
         collapsible : true,
     	collapsed : false,
@@ -30,5 +25,6 @@ Ext.define('Job.view.Viewport', {
             title : 'Job',
             id : 'jobcontainer'
         }]
-    }]
+    }
+    ]
 });

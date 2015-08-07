@@ -3,8 +3,6 @@
  */
 package xgt.easy.schedule.model;
 
-import java.util.Date;
-
 import org.junit.Test;
 
 /**
@@ -15,7 +13,7 @@ public class TestHistorySearchModel {
 	@Test
 	public void test(){
 		HistorySearchModel model = new HistorySearchModel();
-		model.setEndRunTime(new Date());
+		model.setEndRunTime("");
 		model.setStart(10);
 		model.setJobName("testjob");
 		model.setSuccess(true);

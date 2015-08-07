@@ -134,7 +134,9 @@ Ext.define('Job.view.jobview.JobTrigger', {
 		this.store.load()
 	},
 	goBack : function(){
-		this.ownerCt.getLayout().setActiveItem(0);
+		var layout = this.ownerCt.getLayout();
+		var next = this.ownerCt.down('joblist');
+		ExtUtil.slideActive(layout,next,'l');
 	},
 	pauseAll : function(){
 		var grid = this;
