@@ -7,6 +7,20 @@ Ext.define('app.view.main.MainController', {
 
     alias: 'controller.main',
     
+    switchTabPanel : function(t, td, cellIndex, record, tr, rowIndex, e, eOpts){
+    	var tab = this.getView().ownerCt.child('tabpanel');
+    	var panel = tab.child(record.data.xtype);
+		if (!panel) {
+			panel = Ext.create(record.data.clazz, {
+				title : record.data.text,
+				closable : true
+			});
+			panel.reload();
+			tab.add(panel);
+		}
+		tab.setActiveTab(panel);
+    },
+    
     onSysmenuClick : function(btn,e){
     	var btns = btn.ownerCt.items.items;
     	Ext.Array.each(btns, function(menu) { 

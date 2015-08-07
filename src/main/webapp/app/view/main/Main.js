@@ -11,7 +11,9 @@ Ext.define('app.view.main.Main', {
 //        'app.view.main.MainController',
 //        'app.view.main.MainModel'
 		'app.view.main.MainHeader',
-		'app.view.job.JobViewport'
+		'app.view.job.TaskView',
+		'app.view.main.MainMenu',
+		'app.view.main.MainNav'
     ],
 
     xtype: 'app-main',
@@ -29,8 +31,22 @@ Ext.define('app.view.main.Main', {
     	xtype : 'mainheader',
     	region : 'north'
     },{
-        xtype : 'panel',
+    	region: 'west',
+        collapsible : true,
+    	collapsed : false,
+    	split : true,
+        width : 200,
+        title : 'Nav',
+        xtype : 'mainmenu'
+    },{
+        xtype : 'tabpanel',
         layout : 'fit',
-        region : 'center'
+        region : 'center',
+//        bodyPadding : 5,
+        items:[{
+        	xtype : 'taskview',
+        	border : true,
+        	title : 'Task'
+        }]
     }]
 });

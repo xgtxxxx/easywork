@@ -17,7 +17,7 @@ Ext.define('app.view.job.JobViewport', {
         xtype: 'tabpanel', // TabPanel itself has no title
         activeTab: 0,      // First tab active by default
         closeAction : 'destory',
-        bodyPadding : '5',
+//        bodyPadding : '3',
         layout : 'fit',
         items: [{
             xtype : 'taskview',

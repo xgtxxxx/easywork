@@ -120,7 +120,7 @@ public abstract class BaseDao<T> {
 	public List<T> listBySql(String sql,Object...params){
 		Session session = getSession();
 		Query query = session.createSQLQuery(sql);
-		for (int i=1; i<=params.length; i++) {
+		for (int i=0; i<params.length; i++) {
 			query.setParameter(i, params[i]);
 		}
 		return query.list();
