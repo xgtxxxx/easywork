@@ -4,6 +4,7 @@ Ext.define('app.view.job.JobViewport', {
     alias : 'widget.jobviewport',
     controller: 'job',
     layout: 'border',
+    border : false,
     items: [{
         region: 'west',
         collapsible : true,
@@ -14,14 +15,14 @@ Ext.define('app.view.job.JobViewport', {
         xtype : 'jobnav'
     }, {
         region: 'center',
+        border : false,
         xtype: 'tabpanel', // TabPanel itself has no title
         activeTab: 0,      // First tab active by default
         closeAction : 'destory',
-//        bodyPadding : '3',
         layout : 'fit',
+        cls : 'border-none-tab',
         items: [{
             xtype : 'taskview',
-            border : true,
             title : 'Task'
         }]
     }

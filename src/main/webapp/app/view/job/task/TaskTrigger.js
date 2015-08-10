@@ -1,6 +1,9 @@
 Ext.define('app.view.job.task.TaskTrigger', {
 	extend : 'app.view.common.OperateGrid',
 	alias : 'widget.tasktrigger',
+	requires : ['app.view.job.task.TaskTriggerController'],
+	controller : 'tasktrigger',
+	uses : ['app.store.job.TaskTriggerStore'],
 	initComponent : function() {
 		this.store = Ext.create('app.store.job.TaskTriggerStore');
 		this.dockedItems = [{
@@ -71,26 +74,23 @@ Ext.define('app.view.job.task.TaskTrigger', {
 			 xtype:'actioncolumn',
 			 dataIndex : 'state',
 	         items: [{
-	        	 scope : this,
 	             getClass:function(v,m,r,rIndex,cIndex,store){ 
-	            	 var action = this.down('actioncolumn');
+	            	 var action = v;
 	                 if (v=='PAUSED'){ 
 	                	 m['tdAttr'] = 'data-qtip="Resume"';
-	                	 action.items[0].handler = this.resumeTrigger;
+	                	 this.items[0].handler = "resumeTrigger";
 	                     return 'icon-resume';  
 	                 }
 	                 if (v=='NORMAL'){ 
 	                	 m['tdAttr'] = 'data-qtip="Pause"';
-	                	 action.items[0].handler = this.pauseTrigger;
+	                	 this.items[0].handler = "pauseTrigger";
 	                     return 'icon-pause';  
 	                 } 
 	             } 
-	         }
-	         ,{
+	         },{
 	             iconCls: 'icon-delete', 
 	             tooltip: 'Delete',
-	             scope  : this,
-	             handler: this.deleteTrigger
+	             handler: 'deleteTrigger'
 	         }]
 		}];
 		this.tbar = Ext.create('Ext.toolbar.Toolbar',{
@@ -100,23 +100,19 @@ Ext.define('app.view.job.task.TaskTrigger', {
 			}, '->', {
 				text : 'PauseAll',
 				iconCls : 'icon-pause',
-				scope : this,
-				handler : this.pauseAll
+				handler : 'pauseAll'
 			}, '-', {
 				text : 'ResumeAll',
 				iconCls : 'icon-resume',
-				scope : this,
-				handler : this.resumeAll
+				handler : 'resumeAll'
 			}, '-', {
 				text : 'NewTrigger',
 				iconCls : 'icon-add',
-				scope : this,
-				handler : this.newTrigger
+				handler : 'newTrigger'
 			},'-',{
 				text : 'Back',
 				iconCls : 'icon-back',
-				scope : this,
-				handler : this.goBack
+				handler : 'goBack'
 			} ]
 		});
 		this.callParent(arguments);
@@ -127,91 +123,11 @@ Ext.define('app.view.job.task.TaskTrigger', {
 		return jobName;
 	},
 	reload : function(jobName) {
-		this.down('toolbar').items.items[0].setText('Triggers['+jobName+']');
-		Ext.apply(this.store.proxy.extraParams,{
+		var me = this;
+		me.down('toolbar').items.items[0].setText('Triggers['+jobName+']');
+		Ext.apply(me.store.proxy.extraParams,{
 			jobName : jobName
 		});
-		this.store.load()
+		me.store.load()
 	},
-	goBack : function(){
-		var layout = this.ownerCt.getLayout();
-		var next = this.ownerCt.down('tasklist');
-		ExtUtil.slideActive(layout,next,'l');
-	},
-	pauseAll : function(){
-		var grid = this;
-		grid.confirm("Sure to pause all?",function(){
-			var jobName = grid.getJobname();
-			grid.doRequest({jobName:jobName},"/job/pauseJob.do")
-		})
-	},
-	resumeAll : function(){
-		var grid = this;
-		grid.confirm("Sure to resume all?",function(){
-			var jobName = grid.getJobname();
-			grid.doRequest({jobName:jobName},"/job/resumeJob.do")
-		})
-	},
-	newTrigger : function(){
-		var grid = this;
-		var jobName = this.getJobname();
-		var form = Ext.create('app.view.job.task.TriggerForm');
-		var win = Ext.create("Ext.window.Window",{
-			width : 400,
-			height : 240,
-			title : 'New Trigger',
-			layout : 'fit',
-			frame : false,
-			modal : true,
-			items : [form],
-			buttonAlign : 'center',
-			buttons : [{
-				text : 'Save',
-				handler : function(){
-					var form = win.down('triggerform').getForm();
-					if (form.isValid()) {
-		                form.submit({
-		                	url: CTX.PATH+'/job/newTrigger.do',
-		                    success: function(form, action) {
-		                       Ext.Msg.alert('Success', action.result.message);
-		                       grid.getStore().reload();
-		                       win.close();
-		                    },
-		                    failure: function(form, action) {
-		                        Ext.Msg.alert('Failed', action.result ? action.result.message : 'No response');
-		                    }
-		                });
-		            }
-				}
-			},{
-				text : 'Cancel',
-				handler : function(){
-					win.close();
-				}
-			}]
-		});
-		win.down('triggerform').setJobName(jobName);
-		win.show();
-	},
-	pauseTrigger : function(grid, rowIndex, colIndex){
-		var p = this;
-		var record = grid.getStore().getAt(rowIndex);
-		p.confirm("Sure to pause "+record.data.name+"?",function(){
-			p.doRequest({triggerName:record.data.name},"/job/pauseTrigger.do")
-		})
-	},
-	resumeTrigger : function(grid, rowIndex, colIndex){
-		var p = this;
-		var record = grid.getStore().getAt(rowIndex);
-		p.confirm("Sure to resume "+record.data.name+"?",function(){
-			p.doRequest({triggerName:record.data.name},"/job/resumeTrigger.do")
-		})
-	},
-	deleteTrigger : function(grid, rowIndex, colIndex){
-		var p = this;
-		var record = grid.getStore().getAt(rowIndex);
-		p.confirm("Sure to remove "+record.data.name+"?",function(){
-			p.doRequest({triggerName:record.data.name},"/job/removeTrigger.do")
-		})
-	}
 });

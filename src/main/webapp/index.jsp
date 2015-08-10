@@ -18,10 +18,15 @@
 
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/icon.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/css/style.css">
 <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <!-- The line below must be kept intact for Sencha Cmd to build your application -->
+<!--  
 <script id="microloader" type="text/javascript" src="bootstrap.js"></script>
+-->
+<script id="microloader" type="text/javascript" src="extjs/include-ext.js?theme=classic"></script>
 <script src="${pageContext.request.contextPath}/extjs/utils/ExtUtil.js"></script>
+<script src="${pageContext.request.contextPath}/app.js"></script>
 <script type="text/javascript">
 	var CTX = {
 		PATH : '${pageContext.request.contextPath}'

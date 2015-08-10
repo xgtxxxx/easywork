@@ -4,22 +4,8 @@ Ext.define('app.view.main.MainController', {
     requires: [
         'Ext.window.MessageBox'
     ],
-
-    alias: 'controller.main',
     
-    switchTabPanel : function(t, td, cellIndex, record, tr, rowIndex, e, eOpts){
-    	var tab = this.getView().ownerCt.child('tabpanel');
-    	var panel = tab.child(record.data.xtype);
-		if (!panel) {
-			panel = Ext.create(record.data.clazz, {
-				title : record.data.text,
-				closable : true
-			});
-			panel.reload();
-			tab.add(panel);
-		}
-		tab.setActiveTab(panel);
-    },
+    alias: 'controller.main',
     
     onSysmenuClick : function(btn,e){
     	var btns = btn.ownerCt.items.items;
@@ -30,22 +16,19 @@ Ext.define('app.view.main.MainController', {
     			}
     		}
     	});
-    	
     	btn.setPressed(true);
+    	btn.addCls("menu-active");
     	var view = this.getView();
-    	var container = view.ownerCt.items.items[1];
+    	var container = Ext.getCmp('main-content');
     	container.removeAll();
     	var app = Ext.create('app.view.job.JobViewport');
     	container.add(app);
+    	btn.removeCls("x-focus");
+    	btn.removeCls("x-btn-focus");
     },
-
-    onClickButton: function () {
-        Ext.Msg.confirm('Confirm', 'Are you sure?', 'onConfirm', this);
-    },
-
-    onConfirm: function (choice) {
-    	if (choice === 'yes') {  
-            this.getViewModel().set('name' , "修改后的title");  
-        }  
+    
+    loadHome : function(){
+    	var home = Ext.getCmp('home-menu');
+    	home.fireEvent('click',home);
     }
 });

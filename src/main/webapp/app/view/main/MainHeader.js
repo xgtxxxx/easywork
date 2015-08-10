@@ -4,9 +4,7 @@
 Ext.define('app.view.main.MainHeader', {
 
 	extend : 'Ext.toolbar.Toolbar',
-	
 	controller : 'main',
-	
 	viewModel : 'main',
 
 	alias : 'widget.mainheader', // 定义了这个组件的xtype类型为maintop
@@ -16,25 +14,35 @@ Ext.define('app.view.main.MainHeader', {
 		bind : { // 数据绑定到MainModel中data的ystem.iconUrl
 			hidden : '{!system.iconUrl}', // 如果system.iconUrl未设置，则此image不显示
 			src : '{system.iconUrl}' // 根据system.iconUrl的设置来加载图片
-		}
-	}, {
-		xtype : 'label',
-		bind : {
-			text : '{system.name}' // text值绑定到system.name
 		},
-		style : 'font-size : 20px; color : blue;'
-	}, {
-		xtype : 'label',
-		bind : {
-			text : '{system.version}'
-		}
+		width : 40,
+		height : 40,
+		margin : '0 0 0 50'
 	}, '->'],
 	initComponent : function() {  
-		var menus = this.getViewModel().getSysmenus();
-        this.items = this.items.concat(menus);  
+		var me = this;
+		var vm = this.getViewModel();
+		var ms = vm.getSysmenus();
+		//Add home
+		var homebtn = vm.createMenuItem("Home","","");
+		homebtn.id = "home-menu";
+		this.items.push(homebtn);
+		//Add other
+		Ext.Array.each(ms, function(item) { 
+			me.items.push(vm.createMenuItem(item.text,item.url,item.iconCls));
+		});
         this.items.push('->');
-        this.items.push('->');
-        this.items.push({text : 'Setting'});
+        this.items.push({
+        	xtype : 'button',
+        	tooltip : 'Setting',
+        	iconCls : 'glyphicon glyphicon-cog',
+        	cls       : 'menu-item',
+        	width : 40,
+        	height: 40
+        });
         this.callParent();  
-    }  
+    },
+	listeners : {
+    	afterrender : 'loadHome'
+    }
 });

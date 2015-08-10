@@ -16,9 +16,8 @@
 .icon-detail{
 	background-image: url(icons/magnifier.png)!important; 
 }
-
-.menu-focus{
-	background-color : blue;
+.icon-leaf{
+	background-image: url(icons/sys.png)!important; 
+	background-size:16px 16px;
 }
-
  

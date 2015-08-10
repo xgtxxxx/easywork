@@ -3,7 +3,7 @@ Ext.define('app.view.job.HistoryView', {
 	requires : ['app.view.job.history.JobHistory'],
 	alias : 'widget.historyview',
 	layout : 'fit',
-	border : true,
+	border : false,
 	items  : [{
 		xtype : 'jobhistory'
 	}],

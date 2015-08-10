@@ -1,6 +1,8 @@
 Ext.define('app.view.job.history.JobHistory', {
 	extend : 'app.view.common.OperateGrid',
 	alias : 'widget.jobhistory',
+	requires : ['app.view.job.history.JobHistoryController'],
+	controller : 'jobhistory',
     initComponent : function() {
     	this.store = Ext.create('app.store.job.JobHistoryStore');
 		this.columns = [ {
@@ -45,7 +47,7 @@ Ext.define('app.view.job.history.JobHistory', {
 	        },"-",{
 	        	xtype : 'datefield',
 	        	emptyText : 'Start Time',
-	        	format : 'Y-m-d H:i:s'
+	        	format : 'Y-m-d'
 	        },"-",{
 	        	xtype : 'datefield',
 	        	emptyText : 'End Time',
@@ -53,8 +55,7 @@ Ext.define('app.view.job.history.JobHistory', {
 	        },"-",{
 	        	text : 'Search',
 	        	iconCls : 'glyphicon glyphicon-search',
-	        	scope : this,
-	        	handler : this.doSearch
+	        	handler : 'doSearch'
 	        },"-",{
 	        	text : 'Clear',
 	        	iconCls : 'glyphicon glyphicon-erase',
@@ -74,27 +75,5 @@ Ext.define('app.view.job.history.JobHistory', {
 		}];
 		this.callParent(arguments);
 		Ext.QuickTips.init();
-	},
-	doSearch : function(){
-		var items = this.down('toolbar').items;
-		var params = {},
-		jobName=items.items[0].getValue(),
-		triggerName=items.items[2].getValue(),
-		startTime=items.items[4].getRawValue(),
-		endTime=items.items[6].getRawValue();
-		if(jobName){
-			params.jobName = jobName;
-		}
-		if(triggerName){
-			params.triggerName = triggerName;
-		}
-		if(startTime){
-			params.startRunTime = startTime;
-		}
-		if(endTime){
-			params.endRunTime = endTime+" 23:59:59";
-		}
-		Ext.apply(this.store.proxy.extraParams,params);
-		this.store.load()
 	}
 });
