@@ -9,7 +9,8 @@
 Ext.define('app.view.main.Main', {
 	extend : 'Ext.container.Container',
 	requires : [
-	'app.view.main.MainHeader'],
+	'app.view.main.MainHeader'
+	],
 	
 	uses : ['app.view.main.MainController',
 	   	 'app.view.main.MainModel'],

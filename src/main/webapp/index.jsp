@@ -25,6 +25,7 @@
 <script id="microloader" type="text/javascript" src="bootstrap.js"></script>
 -->
 <script id="microloader" type="text/javascript" src="extjs/include-ext.js?theme=classic"></script>
+<script src="${pageContext.request.contextPath}/extjs/packages/sencha-charts/build/sencha-charts.js"></script>
 <script src="${pageContext.request.contextPath}/extjs/utils/ExtUtil.js"></script>
 <script src="${pageContext.request.contextPath}/app.js"></script>
 <script type="text/javascript">

@@ -2,7 +2,7 @@ Ext.define('app.store.job.TaskStore', {
     extend: 'Ext.data.Store',
     requires : ['app.model.job.TaskModel'],
     model: 'app.model.job.TaskModel',
-    alias : 'widget.taskstore',
+    alias : 'store.taskstore',
     autoLoad: true,
     proxy: {
         type: 'ajax',

@@ -1,8 +1,8 @@
 {	
 	"sysmenu"  : [
-		{"text":"User","url":"","iconCls":""},
-		{"text":"Email","url":"","iconCls":""},
-		{"text":"Schedule","url":"","iconCls":""},
-		{"text":"Contact","url":"","iconCls":""}
+		{"text":"Schedule","clazz":"app.view.job.JobViewport","iconCls":""},
+		{"text":"User","clazz":"Ext.Component","iconCls":"","clazz":""},
+		{"text":"Email","clazz":"Ext.Component","iconCls":""},
+		{"text":"Contact","clazz":"Ext.Component","iconCls":""}
 	]
 }

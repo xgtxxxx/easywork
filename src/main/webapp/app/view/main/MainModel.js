@@ -32,14 +32,14 @@ Ext.define('app.view.main.MainModel', {
 		});
     	return menus;
     },
-    createMenuItem : function(text,url,iconCls,handler){
+    createMenuItem : function(text,clazz,iconCls,handler){
     	if(!handler){
     		handler = 'onSysmenuClick';
     	}
     	return {
 				text 	  : text,
-				url  	  : url,
 				iconCls   : iconCls,
+				clazz     : clazz,
 				cls       : 'menu-item',
 				width	  : 100,
 				height	  : 40,

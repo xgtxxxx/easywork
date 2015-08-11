@@ -24,12 +24,12 @@ Ext.define('app.view.main.MainHeader', {
 		var vm = this.getViewModel();
 		var ms = vm.getSysmenus();
 		//Add home
-		var homebtn = vm.createMenuItem("Home","","");
+		var homebtn = vm.createMenuItem("Home","app.view.portal.PortalView","");
 		homebtn.id = "home-menu";
 		this.items.push(homebtn);
 		//Add other
 		Ext.Array.each(ms, function(item) { 
-			me.items.push(vm.createMenuItem(item.text,item.url,item.iconCls));
+			me.items.push(vm.createMenuItem(item.text,item.clazz,item.iconCls));
 		});
         this.items.push('->');
         this.items.push({

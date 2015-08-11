@@ -8,25 +8,32 @@ Ext.define('app.view.main.MainController', {
     alias: 'controller.main',
     
     onSysmenuClick : function(btn,e){
+    	var me = this;
     	var btns = btn.ownerCt.items.items;
+    	var refresh = true;
     	Ext.Array.each(btns, function(menu) { 
     		if(menu.type && menu.type=='menu'){
     			if(menu.pressed){
-    				menu.setPressed(false);
+    				if(menu.clazz===btn.clazz){
+    					refresh = false;
+    				}else{
+    					menu.setPressed(false);
+    				}
     			}
     		}
     	});
-    	btn.setPressed(true);
-    	btn.addCls("menu-active");
-    	var view = this.getView();
-    	var container = Ext.getCmp('main-content');
-    	container.removeAll();
-    	var app = Ext.create('app.view.job.JobViewport');
-    	container.add(app);
-    	btn.removeCls("x-focus");
-    	btn.removeCls("x-btn-focus");
+    	if(refresh){
+    		btn.removeCls("x-focus");
+    		btn.removeCls("x-btn-focus");
+    		btn.setPressed(true);
+    		btn.addCls("menu-active");
+    		var view = this.getView();
+    		var container = Ext.getCmp('main-content');
+    		container.removeAll(true);
+    		var app = Ext.create(btn.clazz);
+    		container.add(app);
+    	}
     },
-    
     loadHome : function(){
     	var home = Ext.getCmp('home-menu');
     	home.fireEvent('click',home);
