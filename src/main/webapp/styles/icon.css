@@ -30,3 +30,12 @@
 	background-image: url(icons/export.png)!important; 
 	background-size:16px 16px;
 } 
+.icon-pie{
+	background-image: url(icons/chart_pie.png)!important; 
+}
+.icon-bar{
+	background-image: url(icons/chart_bar.png)!important; 
+}
+.icon-line{
+	background-image: url(icons/chart_curve.png)!important; 
+}

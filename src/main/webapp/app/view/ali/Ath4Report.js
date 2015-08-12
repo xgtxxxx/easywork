@@ -52,17 +52,17 @@ Ext.define('app.view.ali.Ath4Report', {
             }
 		}];
 		this.tbar = [{
-				text: '收起',
-				iconCls : 'icon-collapse',
-				handler: function() {
-					me.getView().getFeature('group').collapseAll();
-				}
+				text: '饼图',
+				iconCls : 'icon-pie',
+				handler: 'showPieChart'
             },'-',{
-				text: '展开',
-				iconCls : 'icon-expand',
-				handler: function() {
-					me.getView().getFeature('group').expandAll();
-				}
+				text: '柱图',
+				iconCls : 'icon-bar',
+				handler: 'showBarChart'
+            },'-',{
+				text: '线图',
+				iconCls : 'icon-line',
+				handler: 'showLineChart'
             },'->', {
 				text : 'Export',
 				iconCls : 'icon-export',
