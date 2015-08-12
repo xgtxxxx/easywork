@@ -1,7 +1,7 @@
 {	
 	"sysmenu"  : [
 		{"text":"Schedule","clazz":"app.view.job.JobViewport","iconCls":""},
-		{"text":"User","clazz":"Ext.Component","iconCls":"","clazz":""},
+		{"text":"Ali","clazz":"app.view.ali.AliView","iconCls":""},
 		{"text":"Email","clazz":"Ext.Component","iconCls":""},
 		{"text":"Contact","clazz":"Ext.Component","iconCls":""}
 	]

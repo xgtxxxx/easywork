@@ -1,21 +1,20 @@
-Ext.define('app.view.job.JobNav', {
+Ext.define('app.view.ali.AliNav', {
 	extend : 'app.view.common.Nav',
-	alias : 'widget.jobnav',
-	xtype : 'jobnav',
+	alias : 'widget.alinav',
 	initComponent : function() {
 		this.store = Ext.create('Ext.data.TreeStore', {
 			root : {
 				expanded : true,
 				children : [{
-					text : "Task",
-					xtype : "taskview",
-					clazz : "app.view.job.TaskView",
+					text : "ATH4 List",
+					xtype : "ath4-detail",
+					clazz : "app.view.ali.Ath4DetailGrid",
 					iconCls  : 'icon-leaf',
 					leaf : true
 				},{
-					text : "History",
-					xtype: "historyview",
-					clazz : "app.view.job.HistoryView",
+					text : "ATH4 Report",
+					xtype: "ath4-report",
+					clazz : "app.view.ali.Ath4Report",
 					iconCls  : 'icon-leaf',
 					leaf : true
 				}]

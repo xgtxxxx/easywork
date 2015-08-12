@@ -25,7 +25,7 @@ Ext.define('app.view.main.MainHeader', {
 		var ms = vm.getSysmenus();
 		//Add home
 		var homebtn = vm.createMenuItem("Home","app.view.portal.PortalView","");
-		homebtn.id = "home-menu";
+//		homebtn.id = "home-menu";
 		this.items.push(homebtn);
 		//Add other
 		Ext.Array.each(ms, function(item) { 

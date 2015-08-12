@@ -24,4 +24,12 @@ http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
 	<mvc:annotation-driven />
 
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:prefix="/" p:suffix=".jsp" />
+	
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- Set file upload max size 10MB -->
+		<property name="maxUploadSize">
+			<value>10000000</value>
+		</property>
+	</bean>
 </beans>

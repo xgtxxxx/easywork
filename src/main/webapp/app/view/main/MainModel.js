@@ -38,6 +38,7 @@ Ext.define('app.view.main.MainModel', {
     	}
     	return {
 				text 	  : text,
+				id        : "_"+text,
 				iconCls   : iconCls,
 				clazz     : clazz,
 				cls       : 'menu-item',

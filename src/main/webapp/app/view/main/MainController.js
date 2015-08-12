@@ -35,7 +35,8 @@ Ext.define('app.view.main.MainController', {
     	}
     },
     loadHome : function(){
-    	var home = Ext.getCmp('home-menu');
+//    	var home = Ext.getCmp('_Home');
+    	var home = Ext.getCmp('_Ali');
     	home.fireEvent('click',home);
     }
 });

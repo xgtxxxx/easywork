@@ -20,4 +20,13 @@
 	background-image: url(icons/sys.png)!important; 
 	background-size:16px 16px;
 }
- 
+.icon-expand{
+	background-image: url(icons/bullet_add.png)!important; 
+}
+.icon-collapse{
+	background-image: url(icons/bullet_delete.png)!important; 
+}
+.icon-export{
+	background-image: url(icons/export.png)!important; 
+	background-size:16px 16px;
+} 
