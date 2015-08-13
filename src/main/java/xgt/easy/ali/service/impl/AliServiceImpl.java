@@ -58,12 +58,6 @@ public class AliServiceImpl implements AliService {
 		return aths.size();
 	}
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public <T> List<T> list(Class<?> clazz) {
-		return (List<T>) this.aliDao.listAll(clazz);
-	}
-	
 	public List<Ath4Detail> list(Search search){
 		String field = search.getField();
 		int count = search.getCount();
@@ -71,17 +65,30 @@ public class AliServiceImpl implements AliService {
 		StringBuffer hql = new StringBuffer("select new Ath4Detail(t.id,t.insertTime,t.businessMonth,t.businessDate,t.skillGroup,t.family,t.name,t.subject1,");
 		String field2 = "t.subject2";
 		String field3 = "t.subject3";
+		String field4 = "t.subject4";
 		StringBuffer orderby = new StringBuffer(" ");
+		boolean isGroup = true;
 		if("subject1".equals(field)){
 			field2 = "''";
 			field3 = "''";
+			field4 = "''";
 		}else if("subject2".equals(field)){
 			field3 = "''";
+			field4 = "''";
 			orderby.append("t.subject1,");
-		}else{
+		}else if("subject3".equals(field)){
+			field4 = "''";
 			orderby.append("t.subject1,t.subject2,");
+		}else{
+			isGroup = false;
+			orderby.append("t.subject1,t.subject2,t.subject3,");
 		}
-		hql.append(field2).append(",").append(field3).append(",sum(t.count) as count,sum(t.duration*t.count)/sum(t.count) as duration ) from Ath4Detail t where 1=1");
+		hql.append(field2).append(",").append(field3).append(",").append(field4);
+		if(isGroup){
+			hql.append(",sum(t.count) as count,sum(t.duration*t.count)/sum(t.count) as duration ) from Ath4Detail t where 1=1");
+		}else{
+			hql.append(",t.count,t.duration) from Ath4Detail t where 1=1");
+		}
 		
 		if(!StringUtils.isEmpty(search.getStartMonth())){
 			hql.append(" and t.businessMonth>=").append(search.getStartMonth());
@@ -89,24 +96,36 @@ public class AliServiceImpl implements AliService {
 		if(!StringUtils.isEmpty(search.getEndMonth())){
 			hql.append(" and t.businessMonth<=").append(search.getEndMonth());
 		}
-		hql.append(" group by t.").append(field);
-		boolean hasHaving = false;
-		if(count>0){
-			hql.append(" having sum(t.count)>=").append(count);
-			hasHaving = true;
-		}
-		if(duration>0){
-			if(!hasHaving){
-				hql.append(" having ");
-			}else{
-				hql.append(" and ");
+		if(isGroup){
+			hql.append(" group by ");
+			if(!StringUtils.isEmpty(orderby)){
+				hql.append(orderby);
 			}
-			hql.append("(sum(t.duration*t.count)/sum(t.count))>=").append(duration);
+			hql.append(" t.").append(field);
+			boolean hasHaving = false;
+			if(count>0){
+				hql.append(" having sum(t.count)>=").append(count);
+				hasHaving = true;
+			}
+			if(duration>0){
+				if(!hasHaving){
+					hql.append(" having ");
+				}else{
+					hql.append(" and ");
+				}
+				hql.append("(sum(t.duration*t.count)/sum(t.count))>=").append(duration);
+			}
+		}else{
+			if(count>0){
+				hql.append(" and t.count>=").append(count);
+			}
+			if(duration>0){
+				hql.append(" and t.duration>=").append(duration);
+			}
 		}
 		
 		hql.append(" order by");
 		hql.append(orderby).append("t.duration desc");
-//		String hql1 = "select new Ath4Detail(t.id,t.insertTime,t.businessMonth,t.businessDate,t.skillGroup,t.family,t.name,t.subject1,t.subject2,t.subject3,sum(t.count) as count,sum(t.duration*t.count)/sum(t.count) as duration ) from Ath4Detail t group by t.subject3 order by t.subject1,t.subject2,t.duration desc";
 		List<Ath4Detail> aths = this.aliDao.search(hql.toString());
 		return aths;
 	}

@@ -43,16 +43,8 @@ public class AliController extends BaseController{
 	private AliService aliService;
 
 	@ResponseBody
-	@RequestMapping("/listAth4Detail")
-	public Map<String,Object> listAth4Detail(Search search){
-		List<Ath4Detail> list = this.aliService.listDetail(search);
-		return this.result(list, list.size());
-	}
-	
-	@ResponseBody
 	@RequestMapping("/listAth4Report")
 	public Map<String,Object> listAth4Report(Search search){
-//		List<Ath4Report> list = this.aliService.list(Ath4Report.class);
 		List<Ath4Detail> list = this.aliService.list(search);
 		return this.result(list, list.size());
 	}

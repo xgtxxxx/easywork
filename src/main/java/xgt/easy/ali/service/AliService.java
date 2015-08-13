@@ -20,11 +20,6 @@ public interface AliService {
 	
 	public int save(List<Ath4Detail> aths);
 
-	/**
-	 * @return
-	 */
-	@Transactional
-	public <T> List<T> list(Class<?> clazz);
 	@Transactional
 	public List<Ath4Detail> list(Search searchfield);
 	/**

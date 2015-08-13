@@ -9,7 +9,7 @@ Ext.define('app.view.ali.ChartWin', {
 	buttonAlign : 'center',
 	initComponent : function() {
 		this.buttons = [{
-			text : 'Close',
+			text : '关闭',
 			scope : this,
 			handler : function(){
 				this.close();

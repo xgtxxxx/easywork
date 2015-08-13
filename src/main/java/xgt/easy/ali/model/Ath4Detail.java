@@ -21,95 +21,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="ali_ath4_detail")
 public class Ath4Detail {
-	/**
-	 * @param id
-	 * @param insertTime
-	 * @param businessMonth
-	 * @param businessDate
-	 * @param skillGroup
-	 * @param family
-	 * @param name
-	 * @param subject1
-	 * @param count
-	 * @param duration
-	 */
-	public Ath4Detail(int id, Date insertTime, int businessMonth,
-			Date businessDate, String skillGroup, String family, String name,
-			String subject1, long count, double duration) {
-		super();
-		this.id = id;
-		this.insertTime = insertTime;
-		this.businessMonth = businessMonth;
-		this.businessDate = businessDate;
-		this.skillGroup = skillGroup;
-		this.family = family;
-		this.name = name;
-		this.subject1 = subject1;
-		this.count = count;
-		this.duration = duration;
-	}
-	/**
-	 * @param id
-	 * @param insertTime
-	 * @param businessMonth
-	 * @param businessDate
-	 * @param skillGroup
-	 * @param family
-	 * @param name
-	 * @param subject1
-	 * @param subject2
-	 * @param count
-	 * @param duration
-	 */
-	public Ath4Detail(int id, Date insertTime, int businessMonth,
-			Date businessDate, String skillGroup, String family, String name,
-			String subject1, String subject2, long count, double duration) {
-		super();
-		this.id = id;
-		this.insertTime = insertTime;
-		this.businessMonth = businessMonth;
-		this.businessDate = businessDate;
-		this.skillGroup = skillGroup;
-		this.family = family;
-		this.name = name;
-		this.subject1 = subject1;
-		this.subject2 = subject2;
-		this.count = count;
-		this.duration = duration;
-	}
 	public Ath4Detail() {
-	}
-	/**
-	 * @param id
-	 * @param insertTime
-	 * @param businessMonth
-	 * @param businessDate
-	 * @param skillGroup
-	 * @param family
-	 * @param name
-	 * @param subject1
-	 * @param subject2
-	 * @param subject3
-	 * @param count
-	 * @param duration
-	 */
-	public Ath4Detail(int id, Date insertTime, int businessMonth,
-			Date businessDate, String skillGroup, String family, String name,
-			String subject1, String subject2, String subject3, long count,
-			double duration) {
-		super();
-		this.id = id;
-		this.insertTime = insertTime;
-		this.businessMonth = businessMonth;
-		this.businessDate = businessDate;
-		this.skillGroup = skillGroup;
-		this.family = family;
-		this.name = name;
-		this.subject1 = subject1;
-		this.subject2 = subject2;
-		this.subject3 = subject3;
-		this.count = count;
-		this.duration = duration;
 	}
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -143,6 +55,25 @@ public class Ath4Detail {
 	 */
 	public int getId() {
 		return id;
+	}
+	public Ath4Detail(int id, Date insertTime, int businessMonth,
+			Date businessDate, String skillGroup, String family, String name,
+			String subject1, String subject2, String subject3, String subject4,
+			long count, double duration) {
+		super();
+		this.id = id;
+		this.insertTime = insertTime;
+		this.businessMonth = businessMonth;
+		this.businessDate = businessDate;
+		this.skillGroup = skillGroup;
+		this.family = family;
+		this.name = name;
+		this.subject1 = subject1;
+		this.subject2 = subject2;
+		this.subject3 = subject3;
+		this.subject4 = subject4;
+		this.count = count;
+		this.duration = duration;
 	}
 	/**
 	 * @param id the id to set

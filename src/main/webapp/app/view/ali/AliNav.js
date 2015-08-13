@@ -7,8 +7,8 @@ Ext.define('app.view.ali.AliNav', {
 				expanded : true,
 				children : [{
 					text : "AHT4",
-					xtype : "alibodyview",
-					clazz : "app.view.ali.Ath4BodyGrid",
+					xtype : "ath4-report",
+					clazz : "app.view.ali.Ath4Report",
 					iconCls  : 'icon-leaf',
 					leaf : true
 				}]
