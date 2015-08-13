@@ -2,6 +2,7 @@ Ext.define('app.store.job.JobHistoryStore', {
     extend: 'Ext.data.Store',
     model: 'app.model.job.JobHistoryModel',
     alias : 'store.jobhistory',
+    autoLoad : true,
     proxy: {
         type: 'ajax',
         url:  CTX.PATH+'/jobHistory/search.do',

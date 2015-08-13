@@ -16,10 +16,11 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import xgt.easy.ali.dao.AliDao;
 import xgt.easy.ali.model.Ath4Detail;
-import xgt.easy.ali.model.Ath4Report;
+import xgt.easy.ali.model.Search;
 import xgt.easy.ali.service.AliService;
 import xgt.easy.excel.Config;
 import xgt.easy.excel.Template;
@@ -62,28 +63,66 @@ public class AliServiceImpl implements AliService {
 	public <T> List<T> list(Class<?> clazz) {
 		return (List<T>) this.aliDao.listAll(clazz);
 	}
+	
+	public List<Ath4Detail> list(Search search){
+		String field = search.getField();
+		int count = search.getCount();
+		int duration = search.getDuration();
+		StringBuffer hql = new StringBuffer("select new Ath4Detail(t.id,t.insertTime,t.businessMonth,t.businessDate,t.skillGroup,t.family,t.name,t.subject1,");
+		String field2 = "t.subject2";
+		String field3 = "t.subject3";
+		StringBuffer orderby = new StringBuffer(" ");
+		if("subject1".equals(field)){
+			field2 = "''";
+			field3 = "''";
+		}else if("subject2".equals(field)){
+			field3 = "''";
+			orderby.append("t.subject1,");
+		}else{
+			orderby.append("t.subject1,t.subject2,");
+		}
+		hql.append(field2).append(",").append(field3).append(",sum(t.count) as count,sum(t.duration*t.count)/sum(t.count) as duration ) from Ath4Detail t where 1=1");
+		
+		if(!StringUtils.isEmpty(search.getStartMonth())){
+			hql.append(" and t.businessMonth>=").append(search.getStartMonth());
+		}
+		if(!StringUtils.isEmpty(search.getEndMonth())){
+			hql.append(" and t.businessMonth<=").append(search.getEndMonth());
+		}
+		hql.append(" group by t.").append(field);
+		boolean hasHaving = false;
+		if(count>0){
+			hql.append(" having sum(t.count)>=").append(count);
+			hasHaving = true;
+		}
+		if(duration>0){
+			if(!hasHaving){
+				hql.append(" having ");
+			}else{
+				hql.append(" and ");
+			}
+			hql.append("(sum(t.duration*t.count)/sum(t.count))>=").append(duration);
+		}
+		
+		hql.append(" order by");
+		hql.append(orderby).append("t.duration desc");
+//		String hql1 = "select new Ath4Detail(t.id,t.insertTime,t.businessMonth,t.businessDate,t.skillGroup,t.family,t.name,t.subject1,t.subject2,t.subject3,sum(t.count) as count,sum(t.duration*t.count)/sum(t.count) as duration ) from Ath4Detail t group by t.subject3 order by t.subject1,t.subject2,t.duration desc";
+		List<Ath4Detail> aths = this.aliDao.search(hql.toString());
+		return aths;
+	}
 
 	@Override
-	public void export(String ids, HttpServletResponse response) {
-		StringBuffer hql = new StringBuffer("from Ath4Report where id in(");
-		String[] is = ids.split(",");
-		for (int i = 0; i<is.length; i++) {
-			if(i>0){
-				hql.append(",");
-			}
-			hql.append("'").append(is[i]).append("'");
-		}
-		hql.append(")");
-		List<Ath4Report> list = this.aliDao.search(hql.toString());
+	public void export(Search search, HttpServletResponse response) {
+		List<Ath4Detail> list = this.list(search);
 		this.doExport(list, response);
 	}
 	
-	private void doExport(List<Ath4Report> datas,HttpServletResponse response){
+	private void doExport(List<Ath4Detail> datas,HttpServletResponse response){
 		String[] header = {"日期","技能组","客栈","花名","一级类目","二级类目","三级类目","咨询量","平均通话时长"};
 		
 		List<Object[]> list = new ArrayList<Object[]>();
 		for(int i=0; i<datas.size(); i++){
-			Ath4Report ath = datas.get(i);
+			Ath4Detail ath = datas.get(i);
 			Object[] data = new Object[header.length];
 			data[0] = DateUtil.formatDate(ath.getBusinessDate(),"yyyyMMdd");
 			data[1] = ath.getSkillGroup();
@@ -92,8 +131,8 @@ public class AliServiceImpl implements AliService {
 			data[4] = ath.getSubject1();
 			data[5] = ath.getSubject2();
 			data[6] = ath.getSubject3();
-			data[7] = ath.getTotalCount();
-			data[8] = ath.getAvgDuration();
+			data[7] = ath.getCount();
+			data[8] = ath.getDuration2();
 			list.add(data);
 		}
 		
@@ -127,6 +166,25 @@ public class AliServiceImpl implements AliService {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	@Override
+	public List<Ath4Detail> listDetail(Search search) {
+		StringBuffer hql = new StringBuffer("from Ath4Detail");
+		boolean f = false;
+		if(!StringUtils.isEmpty(search.getStartMonth())){
+			f = true;
+			hql.append(" where businessMonth>='").append(search.getStartMonth()).append("'");
+		}
+		if(!StringUtils.isEmpty(search.getEndMonth())){
+			if(f){
+				hql.append(" and ");
+			}else{
+				hql.append(" where ");
+			}
+			hql.append(" businessMonth<='").append(search.getEndMonth()).append("'");
+		}
+		return this.aliDao.search(hql.toString());
 	}
 	
 }

@@ -11,7 +11,7 @@
 	background-image: url(icons/delete.png)!important; 
 }
 .icon-back{
-	background-image: url(icons/tab_go.png)!important; 
+	background-image: url(icons/application_side_contract.png)!important; 
 }
 .icon-detail{
 	background-image: url(icons/magnifier.png)!important; 
@@ -38,4 +38,7 @@
 }
 .icon-line{
 	background-image: url(icons/chart_curve.png)!important; 
+}
+.icon-go{
+	background-image: url(icons/application_side_expand.png)!important; 
 }

@@ -18,6 +18,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 
 import xgt.easy.excel.Config;
 import xgt.easy.excel.Region;
@@ -35,7 +36,7 @@ import xgt.easy.utils.excel.ExcelCellRangeAddress;
  */
 public class DefaultTemplate extends Template {
 	
-	private Workbook wb = new HSSFWorkbook();
+	private Workbook wb = new SXSSFWorkbook(500);
 	
 	private Config config;
 	

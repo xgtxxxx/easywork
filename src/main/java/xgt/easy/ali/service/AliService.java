@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.transaction.annotation.Transactional;
 
 import xgt.easy.ali.model.Ath4Detail;
+import xgt.easy.ali.model.Search;
 
 /**
  * @author Gavin
@@ -24,11 +25,19 @@ public interface AliService {
 	 */
 	@Transactional
 	public <T> List<T> list(Class<?> clazz);
-
+	@Transactional
+	public List<Ath4Detail> list(Search searchfield);
 	/**
 	 * @param ids
 	 * @param response
 	 */
 	@Transactional
-	public void export(String ids, HttpServletResponse response);
+	public void export(Search search, HttpServletResponse response);
+
+	/**
+	 * @param search
+	 * @return
+	 */
+	@Transactional
+	public List<Ath4Detail> listDetail(Search search);
 }

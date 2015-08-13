@@ -15,7 +15,7 @@ Ext.define('app.model.ali.Ath4ReportModel', {
 		'subject1',
 		'subject2',
 		'subject3',
-		'totalCount',
-		'avgDuration'
+		'count',
+		'duration'
     ]
 });

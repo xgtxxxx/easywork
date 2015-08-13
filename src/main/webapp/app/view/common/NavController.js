@@ -9,7 +9,7 @@ Ext.define('app.view.common.NavController', {
 				title : record.data.text,
 				closable : true
 			});
-			panel.reload();
+//			panel.reload();
 			tab.add(panel);
 		}
 		tab.setActiveTab(panel);

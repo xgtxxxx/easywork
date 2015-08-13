@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import xgt.easy.ali.model.Ath4Detail;
-import xgt.easy.ali.model.Ath4Report;
+import xgt.easy.ali.model.Search;
 import xgt.easy.ali.service.AliService;
 import xgt.easy.common.dao.BaseController;
 import xgt.easy.utils.DateUtil;
@@ -44,21 +44,22 @@ public class AliController extends BaseController{
 
 	@ResponseBody
 	@RequestMapping("/listAth4Detail")
-	public Map<String,Object> listAth4Detail(){
-		List<Ath4Detail> list = this.aliService.list(Ath4Detail.class);
+	public Map<String,Object> listAth4Detail(Search search){
+		List<Ath4Detail> list = this.aliService.listDetail(search);
 		return this.result(list, list.size());
 	}
 	
 	@ResponseBody
 	@RequestMapping("/listAth4Report")
-	public Map<String,Object> listAth4Report(){
-		List<Ath4Report> list = this.aliService.list(Ath4Report.class);
+	public Map<String,Object> listAth4Report(Search search){
+//		List<Ath4Report> list = this.aliService.list(Ath4Report.class);
+		List<Ath4Detail> list = this.aliService.list(search);
 		return this.result(list, list.size());
 	}
 	
 	@RequestMapping("/export")
-	public void exportExcel(String ids,HttpServletResponse response){
-		this.aliService.export(ids,response);
+	public void exportExcel(Search search,HttpServletResponse response){
+		this.aliService.export(search, response);
 	}
 	
 	@ResponseBody

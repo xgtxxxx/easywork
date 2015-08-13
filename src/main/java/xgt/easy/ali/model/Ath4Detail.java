@@ -3,6 +3,8 @@
  */
 package xgt.easy.ali.model;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -19,6 +21,96 @@ import javax.persistence.Table;
 @Entity
 @Table(name="ali_ath4_detail")
 public class Ath4Detail {
+	/**
+	 * @param id
+	 * @param insertTime
+	 * @param businessMonth
+	 * @param businessDate
+	 * @param skillGroup
+	 * @param family
+	 * @param name
+	 * @param subject1
+	 * @param count
+	 * @param duration
+	 */
+	public Ath4Detail(int id, Date insertTime, int businessMonth,
+			Date businessDate, String skillGroup, String family, String name,
+			String subject1, long count, double duration) {
+		super();
+		this.id = id;
+		this.insertTime = insertTime;
+		this.businessMonth = businessMonth;
+		this.businessDate = businessDate;
+		this.skillGroup = skillGroup;
+		this.family = family;
+		this.name = name;
+		this.subject1 = subject1;
+		this.count = count;
+		this.duration = duration;
+	}
+	/**
+	 * @param id
+	 * @param insertTime
+	 * @param businessMonth
+	 * @param businessDate
+	 * @param skillGroup
+	 * @param family
+	 * @param name
+	 * @param subject1
+	 * @param subject2
+	 * @param count
+	 * @param duration
+	 */
+	public Ath4Detail(int id, Date insertTime, int businessMonth,
+			Date businessDate, String skillGroup, String family, String name,
+			String subject1, String subject2, long count, double duration) {
+		super();
+		this.id = id;
+		this.insertTime = insertTime;
+		this.businessMonth = businessMonth;
+		this.businessDate = businessDate;
+		this.skillGroup = skillGroup;
+		this.family = family;
+		this.name = name;
+		this.subject1 = subject1;
+		this.subject2 = subject2;
+		this.count = count;
+		this.duration = duration;
+	}
+	public Ath4Detail() {
+	}
+	/**
+	 * @param id
+	 * @param insertTime
+	 * @param businessMonth
+	 * @param businessDate
+	 * @param skillGroup
+	 * @param family
+	 * @param name
+	 * @param subject1
+	 * @param subject2
+	 * @param subject3
+	 * @param count
+	 * @param duration
+	 */
+	public Ath4Detail(int id, Date insertTime, int businessMonth,
+			Date businessDate, String skillGroup, String family, String name,
+			String subject1, String subject2, String subject3, long count,
+			double duration) {
+		super();
+		this.id = id;
+		this.insertTime = insertTime;
+		this.businessMonth = businessMonth;
+		this.businessDate = businessDate;
+		this.skillGroup = skillGroup;
+		this.family = family;
+		this.name = name;
+		this.subject1 = subject1;
+		this.subject2 = subject2;
+		this.subject3 = subject3;
+		this.count = count;
+		this.duration = duration;
+	}
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
@@ -43,7 +135,7 @@ public class Ath4Detail {
 	@Column
 	private String subject4;
 	@Column
-	private int count;
+	private long count;
 	@Column
 	private double duration;
 	/**
@@ -169,13 +261,13 @@ public class Ath4Detail {
 	/**
 	 * @return the count
 	 */
-	public int getCount() {
+	public long getCount() {
 		return count;
 	}
 	/**
 	 * @param count the count to set
 	 */
-	public void setCount(int count) {
+	public void setCount(long count) {
 		this.count = count;
 	}
 	/**
@@ -202,6 +294,12 @@ public class Ath4Detail {
 	public void setBusinessMonth(int businessMonth) {
 		this.businessMonth = businessMonth;
 	}
+	
+	public double getDuration2(){
+		BigDecimal b = new BigDecimal(duration);  
+		return b.setScale(2,RoundingMode.HALF_UP).doubleValue();  
+	}
+	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */

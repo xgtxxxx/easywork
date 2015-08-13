@@ -31,20 +31,20 @@ Ext.define('app.view.ali.chart.PieChart', {
                 angleField: me.angleField,
                 donut: 30,
                 label: {
-                    field: 'subject3',
+                    field: me.groupField,
                     calloutLine: {
                         length: 60,
                         width: 3
                     },
                     renderer : function(text, sprite, config, rendererData, index){
-                    	return text+': '+rendererData.store.getAt(index).get(me.angleField);
+                    	return text+': '+Ext.Number.toFixed(rendererData.store.getAt(index).get(me.angleField),2);
                     }
                 },
                 highlight: true,
                 tooltip: {
                     trackMouse: true,
                     renderer: function(storeItem, item) {
-                        this.setHtml(storeItem.get('subject3') + ': ' + storeItem.get(me.angleField));
+                        this.setHtml(storeItem.get(me.groupField) + ': ' + storeItem.get(me.angleField));
                     }
                 }
             }]

@@ -71,23 +71,100 @@ Ext.define('app.view.ali.Ath4DetailGrid', {
                 return '平均时长:'+value + '秒';
             },
 		}];
+		
+		var month = Ext.Date.format(new Date(),'Ym');
+		
+		var startMonth = Ext.create('Ext.form.field.Text',{
+			fieldLabel : '起始月',
+			labelAlign : 'right',
+			labelWidth : 50,
+			width : 120,
+			value : month,
+			listeners : {
+				specialkey: function(field, e){
+                    if (e.getKey() == e.ENTER) {
+                    	searchBtn.fireEvent('click',searchBtn);
+                    }
+                }
+			}
+		});
+		
+		var endMonth = Ext.create('Ext.form.field.Text',{
+			fieldLabel : '截止月',
+			labelAlign : 'right',
+			labelWidth : 50,
+			width : 120,
+			value : month,
+			listeners : {
+				specialkey: function(field, e){
+                    if (e.getKey() == e.ENTER) {
+                    	searchBtn.fireEvent('click',searchBtn);
+                    }
+                }
+			}
+		});
+		
+		var searchBtn = Ext.create('Ext.button.Button',{
+			text : '查询',
+        	iconCls : 'glyphicon glyphicon-search',
+        	listeners : {
+        		click : 'reloadDetailData'
+        	}
+		});
+		
+		var clearBtn = Ext.create('Ext.button.Button',{
+			text : '重置',
+        	iconCls : 'glyphicon glyphicon-erase',
+        	handler : function(){
+        		startMonth.reset();
+        		endMonth.reset();
+        	}
+		});
+		
 		this.tbar = [{
 				text: '收起',
-				iconCls : 'icon-collapse',
+				iconCls : 'glyphicon glyphicon-minus',
 				handler: function() {
 					me.getView().getFeature('group').collapseAll();
 				}
             },'-',{
 				text: '展开',
-				iconCls : 'icon-expand',
+				iconCls : 'glyphicon glyphicon-plus',
 				handler: function() {
 					me.getView().getFeature('group').expandAll();
 				}
-            },'->', {
-				text : 'Import',
+            },'-',startMonth,
+              '-',endMonth,
+              '-',searchBtn,
+              '-',clearBtn,
+            '->', {
+				text : '导入',
 				iconCls : 'icon-add',
 				handler : "showImportWin"
+			},'-',{
+				text : '报表',
+				iconCls : 'icon-go',
+				handler : "goReport"
 			}];
+		this.getStartMonth = function(){
+			if(startMonth.getValue()){
+				return startMonth.getValue();
+			}else{
+				return '';
+			}
+		},
+		this.getEndMonth = function(){
+			if(endMonth.getValue()){
+				return endMonth.getValue();
+			}else{
+				return '';
+			}
+		},
+		this.listeners = {
+			afterrender : function(){
+				searchBtn.fireEvent('click',searchBtn);
+			}
+		}
 		this.callParent(arguments);
 		Ext.QuickTips.init();
 	}

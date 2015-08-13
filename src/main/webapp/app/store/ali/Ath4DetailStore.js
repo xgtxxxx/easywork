@@ -6,7 +6,7 @@ Ext.define('app.store.ali.Ath4DetailStore', {
     sortOnLoad : true,
     sorters: {property: 'subject3', direction: 'ASC'},
     groupField: 'subject3',
-    autoLoad: true,
+//    autoLoad: true,
     proxy: {
         type: 'ajax',
         url:  CTX.PATH+'/ali/listAth4Detail.do',
