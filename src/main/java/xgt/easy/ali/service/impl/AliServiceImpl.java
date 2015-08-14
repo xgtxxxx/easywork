@@ -6,12 +6,15 @@ package xgt.easy.ali.service.impl;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.IndexedColors;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,19 +46,41 @@ public class AliServiceImpl implements AliService {
 	@Override
 	public int save(List<Ath4Detail> aths) {
 		Session session = this.aliDao.openSession();
-		Transaction tx = session.beginTransaction();
-		int batch = 0;
-		for (Ath4Detail ath4Detail : aths) {
-			batch++;
-			session.save(ath4Detail);
-			if(batch>=50){
-				session.flush();
-				session.clear();
-				batch = 0;
+		try{
+			if(this.isExist(aths,session)){
+				throw new RuntimeException("有数据重复导入!");
 			}
+			Transaction tx = session.beginTransaction();
+			int batch = 0;
+			for (Ath4Detail ath4Detail : aths) {
+				batch++;
+				session.save(ath4Detail);
+				if(batch>=50){
+					session.flush();
+					session.clear();
+					batch = 0;
+				}
+			}
+			tx.commit();
+		}catch(Exception e){
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}finally{
+			this.aliDao.releaseSession(session);
 		}
-		tx.commit();
 		return aths.size();
+	}
+	
+	private boolean isExist(List<Ath4Detail> aths,Session session){
+		Collections.sort(aths);
+		Date start = aths.get(0).getBusinessDate();
+		Date end = aths.get(aths.size()-1).getBusinessDate();
+		
+		Query query = session.createQuery("select count(*) from Ath4Detail where businessDate>=? and businessDate<=?");  
+		query.setParameter(0, start);
+		query.setParameter(1, end);
+		Long count = (Long)query.uniqueResult();
+		return count>0?true:false;
 	}
 
 	public List<Ath4Detail> list(Search search){

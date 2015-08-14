@@ -7,6 +7,9 @@ Ext.define('app.view.ali.Ath4Report', {
 	selModel: {
         selType: 'checkboxmodel'
     },
+    tbar : [{
+    	text : 'new'
+    }],
 	initComponent : function() {
 		var me = this;
 		var store = Ext.create('app.store.ali.Ath4ReportStore');
@@ -180,9 +183,9 @@ Ext.define('app.view.ali.Ath4Report', {
             	durationField,'-',
             	searchBtn,'-',
             	clearBtn,
-            '->', {
+            '->',{
             	text : '导入',
-				iconCls : 'icon-add',
+				iconCls : 'icon-import',
 				handler : "showImportWin"
 			},'-', {
 				text : '导出',
@@ -234,9 +237,8 @@ Ext.define('app.view.ali.Ath4Report', {
 		this.callParent(arguments);
 		Ext.QuickTips.init();
 	},
-	reload : function(params){
-		Ext.apply(this.store.proxy.extraParams,params);
-		var searchBtn = this.getSearchBtn();
-		searchBtn.fireEvent('click',searchBtn);
+	search : function(filterString){
+		var ignores = ['id','insertTime','businessMonth'];
+		ExtUtil.filterStore(this.oriStore,this.getStore(),filterString,ignores);
 	}
 });

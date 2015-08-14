@@ -7,7 +7,11 @@ Ext.define('app.view.ali.chart.ColumnChart', {
         var me = this;
         me.items = {
             xtype: 'cartesian',
-            shadow : true,
+            legend: {
+                docked: 'bottom',
+                frame : true
+            },
+//            shadow : true,
             border : false,
             store: me.store,
             insetPadding: {
@@ -20,28 +24,11 @@ Ext.define('app.view.ali.chart.ColumnChart', {
             axes: [{
                 type: 'numeric',
                 fields: ['count','duration'],
-//                grid: true,
                 position: 'left',
                 minimum: 0,
                 titleMargin: 20,
                 listeners: {
                     rangechange: function (axis, range) {
-//                        var store = this.getChart().getStore(),
-//                            min = Infinity,
-//                            max = -Infinity,
-//                            value;
-//
-//                        store.each(function (rec) {
-//                            var value = rec.get('highF');
-//                            if (value > max) {
-//                                max = value;
-//                            }
-//                            if (value < min) {
-//                                min = value;
-//                            }
-//                        });
-//
-//                        value = (min + max) / 2;
                         this.setLimits({
                             value: 270,
                             line: {
@@ -65,6 +52,9 @@ Ext.define('app.view.ali.chart.ColumnChart', {
                 type: 'bar',
                 xField: me.groupField,
                 yField: ['count','duration'],
+                title : {
+                	text : ['总电话量','平均通话时长']
+                },
                 stacked: false,
                 style: {
                     minGapWidth: 20
@@ -78,7 +68,7 @@ Ext.define('app.view.ali.chart.ColumnChart', {
                     field: ['count','duration'],
                     display: 'insideEnd',
                     renderer: function (value) {
-                        return parseInt(value)===value?'总电话量:'+value:'平均通话时长:'+value.toFixed(2);
+                        return parseInt(value)===value?value:value.toFixed(2);
                     }
                 }
             },

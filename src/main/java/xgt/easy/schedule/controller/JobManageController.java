@@ -110,7 +110,7 @@ public class JobManageController extends BaseController {
 			this.jobService.addTrigger(taskTrigger);
 		}catch(Exception e){
 			e.printStackTrace();
-			return fail(e.getMessage());
+			return fail(e.getCause().getMessage());
 		}
 		return success("Add new trigger success!");
 	}
@@ -126,7 +126,7 @@ public class JobManageController extends BaseController {
 			this.jobService.addJob(taskJob);
 		}catch(Exception e){
 			e.printStackTrace();
-			return this.fail(e.getMessage());
+			return this.fail(e.getCause().getMessage());
 		}
 		return this.success("Add new job success!");
 	}
@@ -138,7 +138,7 @@ public class JobManageController extends BaseController {
 			this.jobService.deleteJob(jobName);
 		}catch(Exception e){
 			e.printStackTrace();
-			return this.fail(e.getMessage());
+			return this.fail(e.getCause().getMessage());
 		}
 		return this.success("Delete job("+jobName+") success!");
 	}
@@ -150,7 +150,7 @@ public class JobManageController extends BaseController {
 			this.jobService.startJobNow(jobName);
 		}catch(Exception e){
 			e.printStackTrace();
-			return this.fail(e.getMessage());
+			return this.fail(e.getCause().getMessage());
 		}
 		return this.success("Start job("+jobName+") success!");
 	}

@@ -14,13 +14,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import xgt.easy.utils.DateUtil;
+
 /**
  * @author Gavin
  *
  */
 @Entity
 @Table(name="ali_ath4_detail")
-public class Ath4Detail {
+public class Ath4Detail implements Comparable<Ath4Detail>{
 	public Ath4Detail() {
 	}
 	@Id
@@ -243,5 +245,12 @@ public class Ath4Detail {
 				+ ", subject2=" + subject2 + ", subject3=" + subject3
 				+ ", subject4=" + subject4 + ", count=" + count + ", duration="
 				+ duration + "]";
+	}
+	/* (non-Javadoc)
+	 * @see java.lang.Comparable#compareTo(java.lang.Object)
+	 */
+	@Override
+	public int compareTo(Ath4Detail o) {
+		return DateUtil.compareDate(o.getBusinessDate(),this.getBusinessDate());
 	}
 }

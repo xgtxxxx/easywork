@@ -6,7 +6,8 @@
 .menu-item .x-btn-inner{
 	font-weight : bold!important;
 	font-size : 14px!important;
-	text-shadow : 1px 1px 1px #fff;
+	text-shadow : 2px 2px 1px #000;
+	color : #eee;
 }
 
 .menu-active{
@@ -24,4 +25,7 @@
 
 .grid-row-bgcolor-red{
 	background-color:#FFCCFF!important;
+}
+.grid-search-box,.x-form-text-wrap{
+	border-radius : 5px!important;
 }

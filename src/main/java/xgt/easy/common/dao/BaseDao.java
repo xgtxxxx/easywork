@@ -81,9 +81,15 @@ public abstract class BaseDao<T> {
 	 * @param c
 	 * @return
 	 */
-	public int getTotalCount(String hql) {
+	public int getTotalCount(String hql,Object...params) {
 		Session session = getSession();
-		Long count = (Long) session.createQuery(hql).uniqueResult();
+		Query query = session.createQuery(hql);  
+		int i = 0;
+		for (Object object : params) {
+			query.setParameter(i++, object);
+		}
+		Long count = (Long)query.uniqueResult();
+		
 		return count==null?0:count.intValue();
 	}
 

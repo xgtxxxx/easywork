@@ -79,7 +79,7 @@ public class AliController extends BaseController{
 			this.aliService.save(aths);
 		}catch(Exception e){
 			e.printStackTrace();
-			return fail(e.getMessage());
+			return fail(e.getCause().getMessage());
 		}
 		return success("Import data success!");
 	}

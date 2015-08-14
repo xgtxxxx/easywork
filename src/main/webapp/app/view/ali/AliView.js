@@ -3,7 +3,7 @@ Ext.define('app.view.ali.AliView', {
 	requires : ['app.view.ali.AliNav',
 	            'app.view.ali.AliController',
 	            'app.view.common.MainTab',
-	            ,'app.view.ali.Ath4Report'],
+	            ,'app.view.ali.AliBody'],
 	uses : [],
     alias : 'widget.aliview',
     controller: 'ali',
@@ -14,9 +14,10 @@ Ext.define('app.view.ali.AliView', {
         xtype : 'alinav'
     }, {
         xtype : 'maintab',
-        items: [{
-            xtype : 'ath4-report',
-            title : 'AHT4'
-        }]
+        items: [
+                {
+            xtype : 'alibody'
+        }
+		]
     }]
 });

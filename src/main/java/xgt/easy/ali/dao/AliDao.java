@@ -20,4 +20,6 @@ public interface AliDao {
 	public List<Ath4Detail> listAll(Class<?> clazz);
 	
 	public <T> List<T> search(String hql,Object...params);
+	
+	public int getTotalCount(String hql,Object...params);
 }

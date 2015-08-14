@@ -2,6 +2,11 @@ Ext.define('app.view.ali.AliController', {
     extend: 'app.view.common.NavController',
     alias: 'controller.ali',
     
+    searchGridContext : function(){
+    	var view = this.getView();
+    	var filter = view.getFilter();
+    	view.down('ath4-report').search(filter);
+    },
     showImportWin : function(){
     	var grid = this.getView();
     	var win = Ext.create("Ext.window.Window",{
@@ -151,6 +156,32 @@ Ext.define('app.view.ali.AliController', {
     	});
     	win.show();
     },
+    showLineChart : function(){
+    	var me = this;
+    	var grid = this.getView();
+    	var selects = grid.getSelection();
+    	if(selects.length===0){
+    		Ext.Msg.alert("提示","至少选着一条数据!");
+    		return;
+    	}
+    	var store = Ext.create('Ext.data.JsonStore',{
+    		model: Ext.create('app.model.ali.Ath4ReportModel')
+    	});
+    	for(var i=0; i<selects.length; i++){
+    		store.add(selects[i]);
+    	}
+    	var groupField = grid.getGroupField();
+    	var Line = Ext.create('app.view.ali.chart.LineChart',{
+    		store : store,
+    		groupField : groupField
+    	});
+    	var win = Ext.create('app.view.ali.ChartWin',{
+    		layout : 'fit',
+    		width : 800,
+    		items : Line
+    	});
+    	win.show();
+    },
     reloadDataByGroup : function(searchBtn){
     	var me = this.getView();
     	var field = me.getGroupField();
@@ -169,6 +200,11 @@ Ext.define('app.view.ali.AliController', {
     		},
     	    scope: this,
     	    callback: function(records, operation, success) {
+    	    	var copyStore = Ext.create('Ext.data.JsonStore',{
+    	    		model: Ext.create('app.model.ali.Ath4ReportModel')
+    	    	});
+    	    	copyStore.add(records);
+    	    	me.oriStore = copyStore;
     	    }
     	});
     }
