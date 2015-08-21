@@ -4,6 +4,7 @@ Ext.define('app.view.main.MainController', {
     requires: [
         'Ext.window.MessageBox'
     ],
+    uses : ['app.view.common.BaseView'],
     
     alias: 'controller.main',
     
@@ -30,13 +31,39 @@ Ext.define('app.view.main.MainController', {
     		var view = this.getView();
     		var container = Ext.getCmp('main-content');
     		container.removeAll(true);
-    		var app = Ext.create(btn.clazz);
+    		var app;
+    		if(btn.id=='_Home'){
+    			app = Ext.create(btn.clazz);
+    		}else{
+    			var store = me._createTreeStore(btn.pid);
+    			app = Ext.create('app.view.common.BaseView',{
+    				navStore : store
+    			});
+    		}
     		container.add(app);
     	}
     },
     loadHome : function(){
-//    	var home = Ext.getCmp('_Home');
-    	var home = Ext.getCmp('_Ali');
+    	var home = Ext.getCmp('_Home');
     	home.fireEvent('click',home);
+    },
+    _createTreeStore : function(pid){
+    	var store = Ext.create('Ext.data.TreeStore',{
+			autoLoad : true,
+			root : {
+		    	expanded : true
+		    },
+		    proxy : {
+	            type: 'ajax',
+	            url:  CTX.PATH+'/sys/listSubMenu.do',
+	            extraParams : {
+	            	pid : pid
+	            },
+	            reader: {
+	                type: 'json'
+	            }
+	        }
+		});
+    	return store;
     }
 });

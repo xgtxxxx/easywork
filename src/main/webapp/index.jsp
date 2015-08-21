@@ -29,6 +29,7 @@
 <script src="${pageContext.request.contextPath}/extjs/packages/sencha-charts/build/sencha-charts.js"></script>
 <script src="${pageContext.request.contextPath}/extjs/utils/ExtUtil.js"></script>
 <script src="${pageContext.request.contextPath}/app.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/relogin.js"></script>
 <script type="text/javascript">
 	var CTX = {
 		PATH : '${pageContext.request.contextPath}'

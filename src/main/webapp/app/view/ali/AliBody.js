@@ -1,6 +1,6 @@
 Ext.define('app.view.ali.AliBody', {
 	extend: 'Ext.panel.Panel',
-//	requires : ['app.view.ali.Ath4Report'],
+	requires : ['app.view.ali.Ath4Report'],
     alias : 'widget.alibody',
     controller: 'ali',
     layout: 'fit',

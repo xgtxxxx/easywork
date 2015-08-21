@@ -22,6 +22,7 @@ public class JobHistoryDaoImpl extends BaseDao<JobHistory> implements JobHistory
 		this.save(jobHistory);
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public Pager<JobHistory> search(String hql, int start, int rows) {
 		Pager<JobHistory> pager = new Pager<JobHistory>();

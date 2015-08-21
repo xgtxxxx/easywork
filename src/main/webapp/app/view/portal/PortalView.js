@@ -46,7 +46,7 @@ Ext.define('app.view.portal.PortalView', {
                 type: 'rss',
                 columnIndex: 1,
                 height: 350,
-                feedUrl: 'portal.jsp'
+                feedUrl: CTX.PATH+'/portal/feed.do?data=portal4'
             }]
         }]
     	this.callParent();  

@@ -1,0 +1,19 @@
+[{
+	text : "Task",
+	clazz : "",
+	iconCls  : 'icon-leaf',
+	leaf : false,
+	children : [{
+		text : "Task1",
+		xtype : "taskview",
+		clazz : "app.view.job.TaskView",
+		iconCls  : 'icon-leaf',
+		leaf : true
+	}]
+},{
+	text : "History",
+	xtype : "historyview",
+	clazz : "app.view.job.HistoryView",
+	iconCls  : 'icon-leaf',
+	leaf : true
+}]

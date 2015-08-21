@@ -1,15 +1,13 @@
 Ext.define('app.view.ali.Ath4Report', {
 	extend : 'app.view.common.OperateGrid',
 	alias : 'widget.ath4-report',
-	requires : ['app.view.ali.AliController'],
+	requires : ['app.view.ali.AliController','app.view.ali.AliViewModel'],
 	uses : ['app.store.ali.Ath4ReportStore'],
 	controller : 'ali',
+	viewModel : 'ali',
 	selModel: {
         selType: 'checkboxmodel'
     },
-    tbar : [{
-    	text : 'new'
-    }],
 	initComponent : function() {
 		var me = this;
 		var store = Ext.create('app.store.ali.Ath4ReportStore');
@@ -186,11 +184,17 @@ Ext.define('app.view.ali.Ath4Report', {
             '->',{
             	text : '导入',
 				iconCls : 'icon-import',
-				handler : "showImportWin"
-			},'-', {
+				handler : "showImportWin",
+				bind : {
+					hidden : '{btn_import}'
+				}
+			}, {
 				text : '导出',
 				iconCls : 'icon-export',
-				handler : "doExport"
+				handler : "doExport",
+				bind : {
+					hidden : '{btn_export}'
+				}
 			}]
 		});
 		this.getGroupField = function(){

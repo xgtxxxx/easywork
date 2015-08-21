@@ -14,6 +14,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import xgt.easy.common.adapters.DateFormat;
+import xgt.easy.common.adapters.DateTimeFormat;
 import xgt.easy.utils.DateUtil;
 
 /**
@@ -29,10 +33,12 @@ public class Ath4Detail implements Comparable<Ath4Detail>{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	@Column
+	@JsonSerialize(using = DateTimeFormat.class)
 	private Date insertTime;
 	@Column
 	private int businessMonth;
 	@Column
+	@JsonSerialize(using = DateFormat.class)
 	private Date businessDate;
 	@Column
 	private String skillGroup;
