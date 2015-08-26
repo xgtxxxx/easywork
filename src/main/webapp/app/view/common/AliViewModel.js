@@ -5,7 +5,6 @@ Ext.define('app.view.ali.AliViewModel', {
     
     data : {
     	btn_export : true,
-    	btn_import : false,
-    	readOnly : true
+    	btn_import : false
     }
 });

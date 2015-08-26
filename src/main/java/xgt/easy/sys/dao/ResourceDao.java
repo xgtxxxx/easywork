@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import xgt.easy.sys.model.Resource;
+import xgt.easy.sys.model.RoleResource;
 
 /**
  * @author Gavin
@@ -21,4 +22,12 @@ public interface ResourceDao {
 	 * @return
 	 */
 	public List<Resource> query(String hql,Map<String, Object> params);
+
+	/**
+	 * @param string
+	 * @param params
+	 * @return
+	 */
+	public List<RoleResource> getAuthurity(String string,
+			Map<String, Object> params);
 }

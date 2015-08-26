@@ -7,6 +7,7 @@ Ext.define('app.view.common.NavController', {
     		var panel = tab.child(record.data.xtype);
     		if (!panel) {
     			panel = Ext.create(record.data.clazz, {
+    				mid   : record.data.id,
     				title : record.data.text,
     				closable : tab.items.length>0
     			});

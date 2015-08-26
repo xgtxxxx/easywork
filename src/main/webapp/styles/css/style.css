@@ -26,6 +26,7 @@
 .grid-row-bgcolor-red{
 	background-color:#FFCCFF!important;
 }
-.grid-search-box,.x-form-text-wrap{
-	border-radius : 5px!important;
+
+.x-form-text-wrap-default{
+	border-style : none!important;
 }

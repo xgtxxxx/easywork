@@ -1,10 +1,14 @@
 Ext.define('app.view.job.task.TaskTrigger', {
 	extend : 'app.view.common.OperateGrid',
 	alias : 'widget.tasktrigger',
-	requires : ['app.view.job.task.TaskTriggerController'],
+	requires : ['app.view.job.task.TaskTriggerController','app.view.common.AuthurityModel'],
 	controller : 'tasktrigger',
 	uses : ['app.store.job.TaskTriggerStore'],
 	initComponent : function() {
+		var me = this;
+		this.viewModel = Ext.create('app.view.common.AuthurityModel',{
+			mid : me.up('taskview').mid
+		});
 		this.store = Ext.create('app.store.job.TaskTriggerStore');
 		this.dockedItems = [{
 	        xtype: 'pagingtoolbar',
@@ -100,15 +104,24 @@ Ext.define('app.view.job.task.TaskTrigger', {
 			}, '->', {
 				text : 'PauseAll',
 				iconCls : 'icon-pause',
-				handler : 'pauseAll'
+				handler : 'pauseAll',
+				bind : {
+					hidden : '{readOnly}'
+				}
 			}, '-', {
 				text : 'ResumeAll',
 				iconCls : 'icon-resume',
-				handler : 'resumeAll'
+				handler : 'resumeAll',
+				bind : {
+					hidden : '{readOnly}'
+				}
 			}, '-', {
 				text : 'NewTrigger',
 				iconCls : 'icon-add',
-				handler : 'newTrigger'
+				handler : 'newTrigger',
+				bind : {
+					hidden : '{readOnly}'
+				}
 			},'-',{
 				text : 'Back',
 				iconCls : 'icon-back',

@@ -3,7 +3,7 @@
  */
 package xgt.easy.sys.model;
 
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -43,7 +43,7 @@ public class User {
             inverseJoinColumns=@JoinColumn(name="role_id")
     )
 	@JsonIgnore
-	private Set<Role> roles;
+	private List<Role> roles;
 	/**
 	 * @return the id
 	 */
@@ -107,13 +107,13 @@ public class User {
 	/**
 	 * @return the roles
 	 */
-	public Set<Role> getRoles() {
+	public List<Role> getRoles() {
 		return roles;
 	}
 	/**
 	 * @param roles the roles to set
 	 */
-	public void setRoles(Set<Role> roles) {
+	public void setRoles(List<Role> roles) {
 		this.roles = roles;
 	}
 }

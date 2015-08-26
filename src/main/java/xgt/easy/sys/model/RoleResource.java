@@ -23,6 +23,9 @@ public class RoleResource {
 	private int roleId;
 	@Column(name="resource_id")
 	private int resourceId;
+	
+	@Column
+	private boolean readOnly = true;
 	/**
 	 * @return the roleId
 	 */
@@ -58,6 +61,18 @@ public class RoleResource {
 	 */
 	public void setId(int id) {
 		this.id = id;
+	}
+	/**
+	 * @return the readOnly
+	 */
+	public boolean isReadOnly() {
+		return readOnly;
+	}
+	/**
+	 * @param readOnly the readOnly to set
+	 */
+	public void setReadOnly(boolean readOnly) {
+		this.readOnly = readOnly;
 	}
 	
 }

@@ -21,6 +21,8 @@ import xgt.easy.common.dao.BaseController;
 import xgt.easy.common.model.Constants;
 import xgt.easy.sys.model.ActiveMenu;
 import xgt.easy.sys.model.Resource;
+import xgt.easy.sys.model.Role;
+import xgt.easy.sys.model.RoleResource;
 import xgt.easy.sys.model.User;
 import xgt.easy.sys.model.UserStatus;
 import xgt.easy.sys.service.ResourceService;
@@ -45,7 +47,7 @@ public class SysController extends BaseController{
 	@ResponseBody
 	@RequestMapping(value="/login",method=RequestMethod.POST)
 	public Map<String,Object> login(String email,String password,HttpServletRequest request){
-		User u = userService.getUser(email, password);
+		User u = userService.getUser(email, password, true);
 		if(u==null){
 			return fail("No user find!");
 		}else{
@@ -69,7 +71,7 @@ public class SysController extends BaseController{
 	@RequestMapping("/initData")
 	public Map<String,Object> initData(HttpServletRequest request){
 		User user = getCurrentUser(request);
-		List<Resource> rs = this.resourceService.listByLevel(1, user);
+		List<Resource> rs = this.resourceService.listByLevel(1, user.getRoles());
 		Map<String,Object> result = new HashMap<String,Object>();
 		result.put("menu", rs);
 		result.put("user", user.getName());
@@ -81,10 +83,37 @@ public class SysController extends BaseController{
 	@JsonView(Resource.SubView.class)
 	@RequestMapping("/sys/listSubMenu")
 	public List<Resource> listSubMenu(int pid,HttpServletRequest request){
-		List<Resource> list = this.resourceService.listByParent(pid);
-		List<ActiveMenu> menus = this.userService.listActiveMenu(this.getCurrentUser(request).getId());
+//		List<Resource> list = this.resourceService.listByParent(pid);
+		
+		User user = this.getCurrentUser(request);
+		List<Role> roles = user.getRoles();
+		
+		List<Resource> list = this.resourceService.listResources(roles,pid);
+		
+		List<ActiveMenu> menus = this.userService.listActiveMenu(user.getId());
+		
 		activeMenu(list, menus);
 		return list;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/sys/authurity")
+	public Map<String,Object> authurity(int menuId, HttpServletRequest request){
+		User user = this.getCurrentUser(request);
+		List<RoleResource> auths = this.resourceService.getAuthurity(menuId,user.getId());
+		
+		Map<String,Object> result = new HashMap<String,Object>();
+		boolean readOnly = true;
+		for (RoleResource rr : auths) {
+			if(!rr.isReadOnly()){
+				readOnly = false;
+				break;
+			}
+		}
+		
+		result.put("readOnly", readOnly);
+		
+		return result;
 	}
 	
 	private void activeMenu(List<Resource> list, List<ActiveMenu> menus){

@@ -1,15 +1,17 @@
 Ext.define('app.view.ali.Ath4Report', {
 	extend : 'app.view.common.OperateGrid',
 	alias : 'widget.ath4-report',
-	requires : ['app.view.ali.AliController','app.view.ali.AliViewModel'],
+	requires : ['app.view.ali.AliController','app.view.common.AuthurityModel'],
 	uses : ['app.store.ali.Ath4ReportStore'],
 	controller : 'ali',
-	viewModel : 'ali',
 	selModel: {
         selType: 'checkboxmodel'
     },
 	initComponent : function() {
 		var me = this;
+		this.viewModel = Ext.create('app.view.common.AuthurityModel',{
+			mid : me.mid
+		});
 		var store = Ext.create('app.store.ali.Ath4ReportStore');
 		this.store = store;
 		this.columns = [{
@@ -186,14 +188,14 @@ Ext.define('app.view.ali.Ath4Report', {
 				iconCls : 'icon-import',
 				handler : "showImportWin",
 				bind : {
-					hidden : '{btn_import}'
+					hidden : '{readOnly}'
 				}
 			}, {
 				text : '导出',
 				iconCls : 'icon-export',
 				handler : "doExport",
 				bind : {
-					hidden : '{btn_export}'
+					hidden : '{readOnly}'
 				}
 			}]
 		});

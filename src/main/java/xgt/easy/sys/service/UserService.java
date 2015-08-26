@@ -19,7 +19,7 @@ public interface UserService {
 	
 	public User getUser(String email);
 	
-	public User getUser(String email,String password);
+	public User getUser(String email,String password,boolean farceLoad);
 	
 	public List<ActiveMenu> listActiveMenu(int userId);
 }

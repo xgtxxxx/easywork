@@ -1,10 +1,14 @@
 Ext.define('app.view.job.task.TaskList', {
 	extend : 'app.view.common.OperateGrid',
 	alias : 'widget.tasklist',
-	requires : ['app.view.job.task.TaskListController'],
+	requires : ['app.view.job.task.TaskListController','app.view.common.AuthurityModel'],
 	uses : ['app.store.job.TaskStore'],
 	controller : 'tasklist',
 	initComponent : function() {
+		var me = this;
+		this.viewModel = Ext.create('app.view.common.AuthurityModel',{
+			mid : me.up('taskview').mid
+		});
 		var store = Ext.create('app.store.job.TaskStore');
 		this.store = store;
 		this.dockedItems = [{
@@ -26,14 +30,22 @@ Ext.define('app.view.job.task.TaskList', {
 			header : 'Description',
 			dataIndex : 'description'
 		}, {
-			header : 'Operate',
-			width : 50,
+			header : 'Detail',
+			width : 30,
 			xtype:'actioncolumn',
 	        items: [{
 	            iconCls: 'icon-detail', 
 	            tooltip: 'Show Detail',
 	            handler: 'showDetail'
-	        },{
+	        }]
+		} , {
+			header : 'Operate',
+			width : 50,
+			xtype:'actioncolumn',
+			bind : {
+				hidden : '{readOnly}'
+			},
+	        items: [{
 	            iconCls: 'icon-resume', 
 	            tooltip: 'Start Now',
 	            handler: 'startJobNow'
@@ -49,7 +61,10 @@ Ext.define('app.view.job.task.TaskList', {
 			}, '->', {
 			text : 'New Job',
 			iconCls : 'icon-add',
-			handler : "showAddWin"
+			handler : "showAddWin",
+			bind : {
+				hidden : '{readOnly}'
+			}
 		}];
 		this.callParent(arguments);
 		Ext.QuickTips.init();

@@ -35,7 +35,8 @@ Ext.define('app.view.ali.AliBody', {
     		items : [filter,searchBtn]
     	});
     	this.items = Ext.create('app.view.ali.Ath4Report',{
-    		border : false
+    		border : false,
+    		mid : me.mid
     	});
     	this.callParent(arguments);
     	Ext.QuickTips.init();

@@ -6,6 +6,7 @@ package xgt.easy.sys.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,9 +33,13 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public User getUser(String email, String password) {
+	public User getUser(String email, String password, boolean farceLoad) {
 		String hql = "from User where email=? and password=?";
-		return userDao.getUser(hql, email, password);
+		User user = userDao.getUser(hql, email, password);
+		if(farceLoad){
+			Hibernate.initialize(user.getRoles());
+		}
+		return user;
 	}
 
 	@Override
