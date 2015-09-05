@@ -13,7 +13,7 @@
        http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
        http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-4.0.xsd">
 
-	<context:component-scan base-package="xgt.easy.schedule,xgt.easy.ali" />
+	<context:component-scan base-package="xgt.easy.schedule,xgt.easy.ali,xgt.easy.sys" />
 	
 	<context:property-placeholder location="classpath:jdbc.properties" />
 	<!-- 配置数据源 -->
@@ -67,6 +67,7 @@
                 <!-- 可以加多个包 -->
                 <value>xgt.easy.schedule.model</value>
                 <value>xgt.easy.ali.model</value>
+                <value>xgt.easy.sys.model</value>
             </list>
         </property>
         <property name="hibernateProperties">

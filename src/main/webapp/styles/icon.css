@@ -30,6 +30,10 @@
 	background-image: url(icons/export.png)!important; 
 	background-size:16px 16px;
 } 
+.icon-import{
+	background-image: url(icons/import.png)!important; 
+	background-size:16px 16px;
+} 
 .icon-pie{
 	background-image: url(icons/chart_pie.png)!important; 
 }
@@ -41,4 +45,8 @@
 }
 .icon-go{
 	background-image: url(icons/application_side_expand.png)!important; 
+}
+.icon-search{
+	background-image: url(icons/search.png)!important; 
+	background-size:16px 16px;
 }

@@ -18,9 +18,6 @@ Ext.define('app.view.main.Main', {
 	xtype : 'app-main',
 
 	controller : 'main',
-	viewModel : {
-		type : 'main'
-	},
 
 	layout : {
 		type : 'border'

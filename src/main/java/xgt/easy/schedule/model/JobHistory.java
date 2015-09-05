@@ -12,6 +12,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import xgt.easy.common.adapters.DateTimeFormat;
+
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 
 /**
  * @author Gavin
@@ -32,6 +36,7 @@ public class JobHistory {
 	@Column
 	private Date nextFireTime;
 	@Column
+	@JsonSerialize(using = DateTimeFormat.class)
 	private Date runTime;
 	@Column
 	private int refireCount;

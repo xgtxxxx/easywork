@@ -5,6 +5,7 @@ package xgt.easy.common.dao;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -75,15 +76,38 @@ public abstract class BaseDao<T> {
         query.setFirstResult(start);  
         return query.list();  
 	}
+	
+	/**
+	 * 获取所有信息
+	 * @param c
+	 * @return
+	 */
+	@SuppressWarnings({"unchecked" })
+	@Deprecated
+	public List<T> list(String hql,Object...params) {
+		Query query = getSession().createQuery(hql);  
+		int index = 0;
+        for (Object param : params) {
+			query.setParameter(index++, param);
+		}
+        return query.list();  
+	}
 
 	/**
 	 * 获取总数量
 	 * @param c
 	 * @return
 	 */
-	public int getTotalCount(String hql) {
+	@Deprecated
+	public int getTotalCount(String hql,Object...params) {
 		Session session = getSession();
-		Long count = (Long) session.createQuery(hql).uniqueResult();
+		Query query = session.createQuery(hql);  
+		int i = 0;
+		for (Object object : params) {
+			query.setParameter(i++, object);
+		}
+		Long count = (Long)query.uniqueResult();
+		
 		return count==null?0:count.intValue();
 	}
 
@@ -124,5 +148,36 @@ public abstract class BaseDao<T> {
 			query.setParameter(i, params[i]);
 		}
 		return query.list();
+	}
+	
+	
+	@SuppressWarnings("unchecked")
+	public List<T> query(String hql,Map<String,Object> params){
+		Query query = getSession().createQuery(hql);  
+		for(String key: params.keySet()){
+			query.setParameter(key, params.get(key));
+		}
+        return query.list();  
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<T> query(String hql,Map<String,Object> params, int start, int rows){
+		Query query = getSession().createQuery(hql);  
+		for(String key: params.keySet()){
+			query.setParameter(key, params.get(key));
+		}
+        query.setMaxResults(rows);  
+        query.setFirstResult(start);  
+        return query.list();  
+	}
+	
+	public int queryCount(String hql,Map<String,Object> params) {
+		Session session = getSession();
+		Query query = session.createQuery(hql);  
+		for(String key: params.keySet()){
+			query.setParameter(key, params.get(key));
+		}
+		Long count = (Long)query.uniqueResult();
+		return count==null?0:count.intValue();
 	}
 }

@@ -8,7 +8,6 @@ import java.io.OutputStream;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.DataFormat;
@@ -53,7 +52,6 @@ public class DefaultTemplate extends Template {
 	
 	private void initSheetWidthConfig(Sheet sheet){
 		Config config = getConfig();
-		sheet.setDefaultColumnWidth(config.getDefaultWidth()*256);
 		sheet.setDefaultRowHeightInPoints(config.getDefaultHeight());
 		for (int index : config.getKeysOfWidth()) {
 			sheet.setColumnWidth(index, config.getColumnWidth(index)*256);

@@ -1,7 +1,7 @@
 Ext.define('app.view.ali.Ath4Report', {
 	extend : 'app.view.common.OperateGrid',
 	alias : 'widget.ath4-report',
-	requires : ['app.view.ali.AliController'],
+	requires : ['app.view.ali.AliController','app.view.common.AuthurityModel'],
 	uses : ['app.store.ali.Ath4ReportStore'],
 	controller : 'ali',
 	selModel: {
@@ -9,6 +9,9 @@ Ext.define('app.view.ali.Ath4Report', {
     },
 	initComponent : function() {
 		var me = this;
+		this.viewModel = Ext.create('app.view.common.AuthurityModel',{
+			mid : me.mid
+		});
 		var store = Ext.create('app.store.ali.Ath4ReportStore');
 		this.store = store;
 		this.columns = [{
@@ -180,14 +183,20 @@ Ext.define('app.view.ali.Ath4Report', {
             	durationField,'-',
             	searchBtn,'-',
             	clearBtn,
-            '->', {
+            '->',{
             	text : '导入',
-				iconCls : 'icon-add',
-				handler : "showImportWin"
-			},'-', {
+				iconCls : 'icon-import',
+				handler : "showImportWin",
+				bind : {
+					hidden : '{readOnly}'
+				}
+			}, {
 				text : '导出',
 				iconCls : 'icon-export',
-				handler : "doExport"
+				handler : "doExport",
+				bind : {
+					hidden : '{readOnly}'
+				}
 			}]
 		});
 		this.getGroupField = function(){
@@ -234,9 +243,8 @@ Ext.define('app.view.ali.Ath4Report', {
 		this.callParent(arguments);
 		Ext.QuickTips.init();
 	},
-	reload : function(params){
-		Ext.apply(this.store.proxy.extraParams,params);
-		var searchBtn = this.getSearchBtn();
-		searchBtn.fireEvent('click',searchBtn);
+	search : function(filterString){
+		var ignores = ['id','insertTime','businessMonth'];
+		ExtUtil.filterStore(this.oriStore,this.getStore(),filterString,ignores);
 	}
 });
