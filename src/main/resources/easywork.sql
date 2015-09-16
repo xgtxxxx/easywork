@@ -319,12 +319,13 @@ CREATE TABLE `sys_role_resource` (
   `id` int(11) NOT NULL auto_increment,
   `role_id` int(11) NOT NULL,
   `resource_id` int(11) NOT NULL,
+  `readOnly` tinyint(1) default NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `sys_role_resource` */
 
-insert  into `sys_role_resource`(`id`,`role_id`,`resource_id`) values (1,1,1),(2,1,2);
+insert  into `sys_role_resource`(`id`,`role_id`,`resource_id`,`readOnly`) values (1,1,1,1),(2,1,2,1),(3,1,3,1),(4,1,4,0),(5,1,5,0),(6,1,6,0);
 
 /*Table structure for table `sys_user` */
 
